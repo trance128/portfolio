@@ -1,0 +1,68 @@
+{% extends 'till_sys/base2.html' %}
+
+{% block script %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+{% endblock %}
+
+{% block body %}
+{% load static %}
+<div class="limiter">
+  <div class="container-100">
+    <div class="wrap-100">
+      <div class="disc-form">
+
+
+
+          <div id="total" class="secret">{{ total }}</div>
+
+          <br><br>
+          <div class="container">
+            <div id="hide1">
+              <h1 class="disc-form-title">Select payment method:</h1><br>
+
+              <div class="container-form-btn">
+                <button id="cash" type="button" class="disc-form-btn-1" onclick="showcash();">Cash</button>
+                <button id="card" type="button" class="disc-form-btn-2" onclick="selectcard();">Card</button><br>
+              </div>
+              <div class="container-form-btn">
+                <button id="staff" type="button" class="disc-form-btn-2" onclick="process('staff food');">Staff Food</button>
+                <button id="waste" type="button" class="disc-form-btn-1" onclick="process('waste');">Waste</button>
+              </div>
+            </div>
+
+            <div id="hide2">
+            </div>
+
+            <div id="hide3">
+            </div>
+
+            <div id="hide4">
+              <div id="change" class="disc-form-title"></div>
+            </div>
+
+            <!-- The actual form to submit.  Will always be hidden from user -->
+            <form id="fpay_method" name="pay_method" action="{% url 'checkout' %}" method="POST" >
+              {% csrf_token %}
+              <input id="pm_method" name="method" class="secret" type="text"></input>
+              <input id="idamt" name="amt" type="text" class="secret"></input>
+            </form>
+          </div>
+
+
+
+      </div>
+      <div class="disc100-more" style="background-image: url('{% static 'images/coffee3.jpg' %}');">
+        <div class="container-101">
+          <div class="wrap-101">
+          </div>
+          <div class="wrap-102">
+            {% include "till_sys/cart.html" %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

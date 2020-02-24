@@ -1,0 +1,108 @@
+{% extends 'till_sys/base2.html' %}
+
+{% block title %}Admin{% endblock %}
+{% block script %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom2.css' %}">
+<script src='{% static "js/rolldate.min.js" %}'></script>
+<script src='{% static "js/custom3.js" %}'></script>
+{% endblock %}
+
+{% block body %}
+<div class="limiter">
+  <div class="container-100">
+    <div class="wrap-100">
+      <div class="disc-form">
+        <div id="carts_all">
+
+          <!-- Contains list of all carts, which we can click on to show more info -->
+          <div class="wrap-202">
+            <div class="container-fluid">
+              <table class="table">
+                {% for cart in carts_all %}
+                  <tr id="mn{{cart.pk}}">
+                    <td>
+                      <a href="{% url 'ref' cart.id %}">{{ cart }}</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Back button, always present -->
+      <div class="wrap-104" id="till_btn">
+        <a href="{% url 'index' %}"><button id="btnch" type="button" class="disc-form-btn-5">Return to Till</button></a>
+      </div>
+
+      <div class="disc100-more" style="background-image: url('{% static 'images/coffee4.jpg' %}');">
+        <div class="container-101">
+          <div class="wrap-101">
+          </div>
+
+          <div class="wrap-102">
+            <!-- Detailed Items go here -->
+            <table class="table">
+              <thead class="t-header">
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Cart ID: {{ this_cart.id }}</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              {% for list in entry_list %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ list.0 }}</td>
+                  <td>£{% if list.0.price %}{{ list.0.price|stringformat:'0.2f' }}
+                    {% else %}{{ list.0.type.price|stringformat:'0.2f' }}
+                    {% endif %}
+                </tr>
+                {% for bread in list.1 %}
+                <tr>
+                  <td></td>
+                  <td>&emsp;&emsp;&emsp;{{ bread }}</td>
+                  <td>{% if bread.price_change %}£{{ bread.price_change|stringformat:'0.2f' }}{% endif %}</td>
+                </tr>
+                {% endfor %}
+
+                {% for option in list.2 %}
+                <tr>
+                  <td></td>
+                  <td>&emsp;&emsp;&emsp;{{ option }}</td>
+                  <td>{% if option.price_change %}£{{ option.price_change|stringformat:'0.2f' }}{% endif %}</td>
+                </tr>
+                {% endfor %}
+
+                {% for fake_option in list.3 %}
+                <tr>
+                  <td></td>
+                  <td>&emsp;&emsp;&emsp;{{ fake_option }}</td>
+                  <td>{% if fake_option.price_change %}£{{ option.price_change|stringformat:'0.2f' }}{% endif %}</td>
+                </tr>
+                {% endfor %}
+              {% endfor %}
+              </table>
+
+              <hr>
+              <h1 class="disc-form-title">Total: £{{ this_cart.total|stringformat:'0.2f' }}</h1><br>
+
+          </div>
+        </div>
+
+        <div class="wrap-103">
+          <!-- Bottom button goes here -->
+          <div class="container-form-btn">
+            <a href="{% url 'pr' this_cart.id %}"><button id="add_more" type="button" class="disc-form-btn-6">Refund</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

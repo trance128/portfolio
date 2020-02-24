@@ -1,0 +1,54 @@
+{% extends "till_sys/base2.html" %}
+
+{% block script %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/util.css' %}">
+{% endblock %}
+
+{% block title %}Login{% endblock %}
+
+
+
+{% block body %}
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100">
+        <form id="lg" action="{% url 'login' %}" method="POST" class="login100-form validate-form">
+          {% csrf_token %}
+          <span class="login100-form-title p-b-34">
+            Employee Login
+          </span>
+
+
+            <div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">
+              <input id="username" class="input100" type="text" name="username" placeholder="User name">
+              <span class="focus-input100"></span>
+            </div>
+            <div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Type password">
+              <input class="input100" type="password" name="password" placeholder="Password">
+              <span class="focus-input100"></span>
+            </div>
+
+          <div class="container-login100-form-btn">
+            <button id="bt" class="login100-form-btn">
+              Log in
+            </button>
+          </div>
+
+          {% if message %}
+            <br>
+            <br>
+            <div class="login100-form-title-error">
+            {{ message }}
+            </div>
+          {% endif %}
+
+
+        </form>
+                <div class="login100-more" style="background-image: url('{% static 'images/coffee1.jpg' %}');"></div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

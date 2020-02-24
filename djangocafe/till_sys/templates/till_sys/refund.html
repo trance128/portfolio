@@ -1,0 +1,64 @@
+{% extends 'till_sys/base2.html' %}
+
+{% block title %}Admin{% endblock %}
+{% block script %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom2.css' %}">
+<script src='{% static "js/rolldate.min.js" %}'></script>
+<script src='{% static "js/custom3.js" %}'></script>
+{% endblock %}
+
+{% block body %}
+<div class="limiter">
+  <div class="container-100">
+    <div class="wrap-100">
+      <div class="disc-form">
+        <div id="carts_all">
+
+          <!-- Contains list of all carts, which we can click on to show more info -->
+          <div class="wrap-202">
+            <div class="container-fluid">
+              <table class="table">
+                {% for cart in carts_all %}
+                  <tr id="mn{{cart.pk}}">
+                    <td>
+                      <a href="{% url 'ref' cart.id %}">{{ cart }}</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Back button, always present -->
+      <div class="wrap-104" id="till_btn">
+        <a href="{% url 'index' %}"><button id="btnch" type="button" class="disc-form-btn-5">Return to Till</button></a>
+      </div>
+
+      <div class="disc100-more" style="background-image: url('{% static 'images/coffee4.jpg' %}');">
+        <div class="container-101">
+          <div class="wrap-101">
+          </div>
+
+          <div class="wrap-102">
+            <!-- This section empty on this page -->
+
+
+          </div>
+        </div>
+
+        <div class="wrap-103">
+          <!-- Bottom button goes here -->
+          <div class="container-form-btn">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

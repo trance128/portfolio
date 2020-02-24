@@ -1,0 +1,23 @@
+{% extends "till_sys/base2.html" %}
+
+{% block script %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+{% endblock %}
+
+{% block body %}
+{% include "till_sys/cart.html" %}
+
+<div class="container-fluid">
+
+  <form name="editform" action="{% url 'remove' %}" method="post">
+    {% csrf_token %}
+    {% for entry in entries %}
+      <input id="ch{{ entry.pk }}" type="checkbox" name="entry{{ entry.pk }}" value="{{ entry.pk }}" class="ch sform"></input>
+    {% endfor %}<br>
+    <a href="{% url 'type' 1 %}"><button type="button" class="btn btn-lg btn-default navbar-btn ed-btn">Back / Remove None</button></a>
+    <input type="submit" value="Remove Selected" class="btn btn-lg btn-default navbar-btn ed-btn"></input><br>
+  </form>
+  <input type="submit" value="Remove All" class="btn btn-lg btn-danger navbar-btn ed-btn" onclick="selectall();"></input>
+</div>
+{% endblock %}

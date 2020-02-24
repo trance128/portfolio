@@ -1,0 +1,43 @@
+{% extends 'till_sys/base2.html' %}
+
+{% block title %}Checkout{% endblock %}
+{% block script %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom2.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="limiter">
+  <div class="container-100">
+    <div class="wrap-100">
+      <div class="disc-form">
+
+          <br><br>
+          <div class="container">
+              <h1 class="disc-form-title">Error:<br>
+              {{ message }}</h1><br>
+          </div>
+          </div>
+
+          <div class="wrap-104" id="till_btn">
+            <a href="{% url 'index' %}"><button id="btnch" type="button" class="disc-form-btn-5">Return to Till</button></a>
+          </div>
+
+      <div class="disc100-more" style="background-image: url('{% static 'images/coffee3.jpg' %}');">
+        <div class="container-101">
+          <div class="wrap-101">
+          </div>
+        </div>
+        <div class="wrap-102">
+        </div>
+        <div class="wrap-103">
+          <!-- Button goes here if needed -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

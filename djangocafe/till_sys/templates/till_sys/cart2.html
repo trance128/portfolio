@@ -1,0 +1,69 @@
+
+
+  <br><br>
+  <div id="cart">
+    <div class="container edt">
+      <table class="table">
+        <thead class="t-header">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Item Name</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        {% for entry in entries %}
+          <tr>
+                <!-- Main Item and price -->
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td onclick="selectt('{{ entry.pk }}');" id="td{{ entry.pk }}">{{ entry.item }}
+                      {% if entry.notes %}
+                        <br><div class="notes">&emsp;&emsp;{{ entry.notes }}</div>
+                      {% endif %}
+                  </td>
+                  <td>
+                    {% for item in ItemsAll %}
+                      {% if item == entry.item %}
+                        {% if item.price %}£{{ item.price|stringformat:'0.2f' }}
+                        {% else %}£{{ item.type.price|stringformat:'0.2f' }}
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  </td>
+                </tr>
+
+                <!-- Name and price of addons / options -->
+                {% for ent, list in entry_dict.items %}
+                  {% if entry == ent %}
+                    {% for i in list.0 %}
+                      <tr>
+                        <td></td>
+                        <td>&emsp;&emsp;&emsp;{{ i }}</td>
+                        <td>{% if i.price_change %}£{{ i.price_change|stringformat:'0.2f' }}{% endif %}</td>
+                      </tr>
+                    {% endfor %}
+
+                    {% for j in list.1 %}
+                      <tr>
+                        <td></td>
+                        <td>&emsp;&emsp;&emsp;{{ j }}</td>
+                        <td>{% if j.price_change %}£{{ j.price_change|stringformat:'0.2f' }}{% endif %}</td>
+                      </tr>
+                    {% endfor %}
+
+                    {% for k in list.2 %}
+                      <tr>
+                        <td></td>
+                        <td>&emsp;&emsp;&emsp;{{ k }}</td>
+                        <td>{% if k.price_change %}£{{ k.price_change|stringformat:'0.2f' }}{% endif %}</td>
+                      </tr>
+                    {% endfor %}
+                  {% endif %}
+                {% endfor %}
+          </tr>
+        {% endfor %}
+      </table>
+      <hr>
+      <h1 class="t">Total: £{{ cart.total|stringformat:'0.2f' }}</h1><br>
+    </div>
+  </div>

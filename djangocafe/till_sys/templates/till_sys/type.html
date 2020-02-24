@@ -1,0 +1,140 @@
+{% extends "till_sys\base.html" %}
+
+{% block script %}
+{% load static %}
+  <script src='{% static "js/custom.js" %}'></script>
+{% endblock %}
+
+{% block body %}
+
+  {% for item in Items %}
+    <button id="btn{{ item.pk }}" type="button" class="btn btn-lg btn-default navbar-btn pr" onclick="showoptions('{{ item.pk }}');">{{ item }}</button>
+  {% endfor %}
+  <br>
+
+
+
+    {% for bread, list in bread_dict.items %}
+      <button id="{{ bread }}" type="button" class="btn btn-lg btn-default navbar-btn optionButton secret
+        {% for item in list %}
+          it{{ item.pk }}
+        {% endfor %}
+      " onclick="select('{{ bread }}')">{{ bread }}</button>
+    {% endfor %}<br>
+
+    {% for option, list in option_dict.items %}
+      <button id="{{ option }}" type="button" class="btn btn-lg btn-default navbar-btn optionButton secret
+        {% for item in list %}
+          it{{ item.pk }}
+        {% endfor %}
+      " onclick="select('{{ option }}');">{{ option }}</button>
+    {% endfor %}<br>
+
+    {% for addon, list in addon_dict.items %}
+      <button id="{{ addon }}" type="button" class="btn btn-lg btn-default navbar-btn optionButton secret
+        {% for item in list %}
+          it{{ item.pk }}
+        {% endfor %}
+      " onclick="select('{{ addon }}');">{{ addon }}</button>
+    {% endfor %}
+
+    <div class="container-fluid mid">
+      <form id="add" action="{% url 'add_item' %}" method="post">
+        {% csrf_token %}
+        <label for="notes">Notes:</label>
+        <textarea name="notes" rows="2" cols="40" class="form-control"></textarea>
+
+        <input name="item" type="text" id="seitem" class="secret" value="empty"><br>
+
+        {% for bread in breads %}
+          <input id="ch{{ bread }}" type="checkbox" name="bread{{ bread.pk }}" value="{{ bread.pk }}" class="ch secret"></input>
+        {% endfor %}
+
+        {% for option in Options %}
+          <input id="ch{{ option }}" type="checkbox" name="options{{ option.pk }}" value="{{ option.pk }}" class="ch secret"></input>
+        {% endfor %}
+
+        {% for addon in Add_Ons %}
+          <input id="ch{{ addon }}" type="checkbox" name="addons{{ addon.pk }}" value="{{ addon.pk }}" class="ch secret"></input>
+        {% endfor %}
+      </form>
+    </div>
+
+    <form id="undo" action="{% url 'undo' %}" method="post">
+      {% csrf_token %}
+    </form>
+
+    <div id="btm-mid" class="btm-mid">
+      <button type="button" class="btn btn-primary chk-btn" onclick="verify_sub('seitem', 'add');">Add Item</button><br>
+      <button type="button" class="btn btn-default chk-btn" onclick="sub('undo');">Remove Last</button>
+    </div>
+
+
+
+    <!---------------------------   RIGHT SIDE BAR ---------------------------------->
+    <!-- Cart items -->
+    <div id="cart" class="cart">
+      <div class="container-fluid">
+        {% if entries %}
+      ===================<br>
+        {% endif %}
+      {% for entry in entries %}
+      <div class="row">
+        <div class="col-xs-9">
+        {{ entry.item }}</div>
+          {% for item in ItemsAll %}
+            {% if item == entry.item %}
+              {% if item.price %}
+                <div class="col-xs-3">£{{ item.price|stringformat:'0.2f' }}</div>
+              {% else %}
+                <div class="col-xs-3">£{{ item.type.price|stringformat:'0.2f' }}</div>
+              {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          <!-- Options, addons and bread type + any change in price -->
+          {% for ent, list in entry_dict.items %}
+            {% if entry == ent %}
+            {% for i in list.0 %}
+            <div class="row">
+              <div class="col-xs-9">&emsp;{{ i }}</div>
+              {% if i.price_change %}<div class="col-xs-3">£{{ i.price_change|stringformat:'0.2f' }}</div>{% endif %}</div>
+            {% endfor %}
+              {% for j in list.1 %}
+              <div class="row">
+                <div class="col-xs-9">&emsp;{{ j }}</div>
+                {% if j.price_change %}<div class="col-xs-3">£{{ j.price_change|stringformat:'0.2f' }}</div>{% endif %}</div>
+              {% endfor %}
+              {% for k in list.2 %}
+              <div class="row">
+                <div class="col-xs-9">&emsp;{{ k }}</div>
+                {% if k.price_change %} <div class="col-xs-3">£{{ k.price_change|stringformat:'0.2f' }}</div>{% endif %}
+              </div>
+              {% endfor %}
+
+              {% if ent.notes %}
+              <div class="row">
+                <div class="col-xs-9">
+                  <div class="notes">&emsp;{{ ent.notes }}</div>
+                </div>
+              </div>
+              {% endif %}
+
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+
+        <!-- Show checkout button and total only if we have items selected -->
+        {% if entries %}
+        ===================<br>
+        TOTAL -- £{{ cart.total|stringformat:'0.2f' }}<br>
+
+        <div class="btm">
+          <a href="{% url 'pay' %}"><button class="btn btn-danger chk-btn">Checkout</button></a>
+        </div>
+        {% endif %}
+        </div>
+      </div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "till_sys\base.html" %}
+
+{% block body %}
+
+    {{ item }}
+    <!-- In the future, I can put a colour tag here so text is different color if there are options -->
+    {% if options %}
+    <p>Options:</p>
+    <ul>{% for option in options %}
+      <li>{{ option }}</li>
+    {% endfor %}</ul>
+    {% endif %}
+
+    {% if addons %}
+    <p>Add-ons:</p>
+    <ul>{% for addon in addons %}
+      <li>{{ addon }}</li>
+    {% endfor %}
+    {% endif %}
+
+    <ul>{% for addon in items.Add_Ons %}
+      <li>{{ addon }}</li>
+    {% endfor %}</ul>
+
+
+
+{% endblock %}

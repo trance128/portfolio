@@ -1,0 +1,225 @@
+{% extends 'till_sys/base2.html' %}
+
+{% block title %}Main{% endblock %}
+{% block script %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom2.css' %}">
+<script src="{% static 'js/custom2.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+{% include 'till_sys/navbar.html' %}
+
+<div class="limiter">
+  <div class="container-100">
+    <div class="wrap-110" style="background-image: url('{% static 'images/c-bg.jpg' %}');">
+      <div class="container-101">
+        <!-- opacity wrapper -->
+        <div class="wrap-111">
+        </div>
+        <div class="wrap-112">
+
+          <!---------- Left sidebar ------------>
+          <div class="sidenav">
+          </div>
+          <div class="sidenav-b">
+            <div id="bk_menu" class="secret2 tp-ctrl">
+              {% for type in data.types %}
+                {% if type.menu_type == "Breakfast" %}
+                  <button id="tp_id_{{ type.pk }}" type="button" onclick="show_items('{{ type.pk }}');" class="sn
+                    {% if forloop.counter0|divisibleby:2 %}disc-side-btn-1" {% else %}disc-side-btn-2" {% endif %}>
+                    {{ type }}</button>
+                {% endif %}
+              {% endfor %}
+            </div>
+
+            <div id="lunch_menu" class="tp-ctrl" >
+              {% for type in data.types %}
+                {% if type.menu_type == "Lunch" %}
+                  <button id="tp_id_{{ type.pk }}" type="button" onclick="show_items('{{ type.pk }}');" class="sn
+                    {% if forloop.counter0|divisibleby:2 %}disc-side-btn-1" {% else %}disc-side-btn-2" {% endif %}>
+                    {{ type }}</button>
+                {% endif %}
+              {% endfor %}
+            </div>
+
+            <div id="drinks_menu" class="secret2 tp-ctrl">
+              {% for type in data.types %}
+                {% if type.menu_type == "Drinks" %}
+                  <button id="tp_id_{{ type.pk }}" type="button" onclick="show_items('{{ type.pk }}');" class="sn
+                    {% if forloop.counter0|divisibleby:2 %}disc-side-btn-1" {% else %}disc-side-btn-2" {% endif %}>
+                    {{ type }}</button>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+          <!--------------------- Left sidenav End ------------------>
+
+
+          <!--------------------- Main Section ---------------------->
+          <div id="cont-main" class="wrap-120">
+            {% for type in data.types %}
+              <div id="m_{{ type.pk }}" class="secret2 main_btn">
+                  {% for item in data.Items %}
+                    {% if item.type == type %}
+                      <button id="m2_{{ item.pk }}" type="button" onclick="show_opt({{ item.pk }});"
+                        {% if forloop.counter|divisibleby:2 %} class="disc-ind-btn-1 mn" {% else %} class="disc-ind-btn-2 mn" {% endif %}>
+                        {{ item }}</button>
+                    {% endif %}
+                  {% endfor %}
+                  <hr>
+                </div>
+            {% endfor %}
+
+            <!--- Bread type, options, add ons --->
+            {% for bread, list in data.bread_dict.items %}
+              <button id="{{ bread }}" type="button" class="ob secret
+                {% if forloop.counter|divisibleby:2 %}disc-opt-btn-2{% else %}disc-opt-btn-1{% endif %}
+                {% for item in list %}
+                  it{{ item.pk }}
+                {% endfor %}
+              " onclick="select2('{{ bread }}');">{{ bread }}</button>
+            {% endfor %}<br>
+
+            {% for option, list in data.option_dict.items %}
+              <button id="{{ option }}" type="button" class="ob secret
+                {% if forloop.counter|divisibleby:2 %}disc-opt-btn-1{% else %}disc-opt-btn-2{% endif %}
+                {% for item in list %}
+                  it{{ item.pk }}
+                {% endfor %}
+              " onclick="select2('{{ option }}');">{{ option }}</button>
+            {% endfor %}<br>
+
+            {% for addon, list in data.addon_dict.items %}
+              <button id="{{ addon }}" type="button" class="ob secret
+                {% if forloop.counter|divisibleby:2 %}disc-opt-btn-2{% else %}disc-opt-btn-1{% endif %}
+                {% for item in list %}
+                  it{{ item.pk }}
+                {% endfor %}
+              " onclick="select2('{{ addon }}');">{{ addon }}</button>
+            {% endfor %}
+            <hr class="f secret">
+            <!-- opt end -->
+
+            <div class="wrap-130">
+              <label for="notes" class="secret f disc-form-title-2">Notes:</label>
+              <textarea id="nt" name="notes" rows="1" cols="10" class="form-control secret f"></textarea>
+            </div>
+
+            <!-- mid buttons -->
+            <div id="btm-mid" class="btm-mid">
+              <hr>
+              <button type="button" class="chk-btn-1" onclick="verify_sub('seitem', 'add');">Add Item</button>
+              <button type="button" class="chk-btn-2" onclick="sub('undo');">Remove Last</button>
+            </div>
+            <!-- end mid buttons -->
+            <!--------------------- Main Section End ------------------>
+
+
+
+            <!--------------------- Right Side Nav -------------------->
+            <div class="sidenav-r">
+            </div>
+            <div class="sidenav-r-b">
+              <div class="container-fluid">
+                {% if data.entries %}
+              ===================<br>
+                {% endif %}
+              {% for entry in data.entries %}
+              <div class="row">
+                <div class="col-xs-9">
+                {{ entry.item }}</div>
+                  {% for item in data.Items %}
+                    {% if item == entry.item %}
+                      {% if item.price %}
+                        <div class="col-xs-3">£{{ item.price|stringformat:'0.2f' }}</div>
+                      {% else %}
+                        <div class="col-xs-3">£{{ item.type.price|stringformat:'0.2f' }}</div>
+                      {% endif %}
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+
+                  <!-- Options, addons and bread type + any change in price -->
+                  {% for ent, list in data.entry_dict.items %}
+                    {% if entry == ent %}
+                    {% for i in list.0 %}
+                    <div class="row">
+                      <div class="col-xs-9">&emsp;{{ i }}</div>
+                      {% if i.price_change %}<div class="col-xs-3">£{{ i.price_change|stringformat:'0.2f' }}</div>{% endif %}</div>
+                    {% endfor %}
+                      {% for j in list.1 %}
+                      <div class="row">
+                        <div class="col-xs-9">&emsp;{{ j }}</div>
+                        {% if j.price_change %}<div class="col-xs-3">£{{ j.price_change|stringformat:'0.2f' }}</div>{% endif %}</div>
+                      {% endfor %}
+                      {% for k in list.2 %}
+                      <div class="row">
+                        <div class="col-xs-9">&emsp;{{ k }}</div>
+                        {% if k.price_change %} <div class="col-xs-3">£{{ k.price_change|stringformat:'0.2f' }}</div>{% endif %}
+                      </div>
+                      {% endfor %}
+
+                      {% if ent.notes %}
+                      <div class="row">
+                        <div class="col-xs-9">
+                          <div class="notes">&emsp;{{ ent.notes }}</div>
+                        </div>
+                      </div>
+                      {% endif %}
+
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+
+                <!-- Show checkout button and total only if we have items selected -->
+                {% if data.entries %}
+                ===================<br>
+                TOTAL -- £{{ cart.total|stringformat:'0.2f' }}<br>
+
+                <div class="btm">
+                  <a href="{% url 'pay' %}"><button class="btm-btn btn-danger">Checkout</button></a>
+                </div>
+                {% endif %}
+                </div>
+            </div>
+            <!------------------- Right Side Nav End ------------------>
+
+
+
+            <!-- The actual form which will be submitted to add an item, controlled via js -->
+            <div class="secret2">
+              <form id="add" action="{% url 'add_item' %}" method="post">
+                {% csrf_token %}
+                <!-- Main item selection -->
+                <input name="item" type="text" id="seitem" class="secret2" value="empty"><br>
+                <textarea id="nts" name="notes" rows="2" cols="40" class="form-control secret2"></textarea>
+
+                <!-- option checkboxes -->
+                {% for bread in data.breads %}
+                  <input id="ch{{ bread }}" type="checkbox" name="bread{{ bread.pk }}" value="{{ bread.pk }}" class="ch secret2"></input>
+                {% endfor %}
+                {% for option in data.Options %}
+                  <input id="ch{{ option }}" type="checkbox" name="options{{ option.pk }}" value="{{ option.pk }}" class="ch secret2"></input>
+                {% endfor %}
+                {% for addon in data.Addons %}
+                  <input id="ch{{ addon }}" type="checkbox" name="addons{{ addon.pk }}" value="{{ addon.pk }}" class="ch secret2"></input>
+                {% endfor %}
+              </form>
+            </div>
+
+            <!-- Form to remove last item item -->
+            <form id="undo" action="{% url 'undo' %}" method="post">
+              {% csrf_token %}
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

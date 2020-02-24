@@ -1,0 +1,83 @@
+{% extends 'till_sys/base2.html' %}
+
+{% block title %}Admin{% endblock %}
+{% block script %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom2.css' %}">
+<script src='{% static "js/rolldate.min.js" %}'></script>
+<script src='{% static "js/custom3.js" %}'></script>
+{% endblock %}
+
+{% block body %}
+<div class="limiter">
+  <div class="container-100">
+    <div class="wrap-100">
+      <div class="disc-form">
+
+          <br><br>
+          <div class="container">
+            <!-- First buttons, choose reports or refund -->
+            <div id="main">
+              <div class="container-form-btn">
+                <button id="report" type="button" class="disc-form-btn-3" onclick="show('main', 'reports');">Reports</button>
+              </div>
+              <div class="container-form-btn">
+                <button id="refund" type="button" class="disc-form-btn-4" onclick=" ">Refund</button><br>
+              </div>
+            </div>
+
+            <!-- Back button, always present -->
+            <div class="wrap-104" id="till_btn">
+              <a href="{% url 'index' %}"><button id="btnch" type="button" class="disc-form-btn-5">Return to Till</button></a>
+            </div>
+
+            <div id="reports" class="secret2">
+              <div class="container-form-btn">
+                <button id="day" type="button" class="disc-form-btn-3" onclick="dt('day');">Day</button>
+              </div>
+              <div class="container-form-btn">
+                <button id="week" type="button" class="disc-form-btn-1" onclick="dt('week');">Week</button>
+                <button id="month" type="button" class="disc-form-btn-2" onclick="dt('month');">Month</button>
+              </div>
+              <div class="container-form-btn">
+                <button id="custom" button="button" class="disc-form-btn-4" onclick="dt2('custom'), show('reports', 'date');">Custom</button>
+              </div>
+            </div>
+
+            <!-- Custom Date input -->
+            <form id="date" name="date" action="{% url 'report' %}" method="POST" class="secret2">
+              {% csrf_token %}
+              <div class="disc-form-title">
+                <input id="dt_type" name="type" class="secret2" type="text"></input>
+                <label for="start" class="disc-form-title">
+                  Start Date
+                </label>
+                <input readonly type="text" id="start" name="start" placeholder=""><br><br>
+                <label for="end" class="disc-form-title">
+                  End Date
+                </label>
+                <input readonly type="text" id="end" name="end" placeholder="">
+              </div>
+
+              <div class="container-form-btn">
+                <button type="submit" class="disc-form-btn-1">Submit</button>
+              </div>
+            </form>
+          </div>
+      </div>
+      <div class="disc100-more" style="background-image: url('{% static 'images/coffee4.jpg' %}');">
+        <div class="container-101">
+          <div class="wrap-101">
+          </div>
+          <div class="wrap-102">
+            <div class="wrap-103">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

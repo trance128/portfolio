@@ -1,0 +1,114 @@
+{% extends 'till_sys/base2.html' %}
+
+{% block title %}Checkout{% endblock %}
+{% block script %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom2.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="limiter">
+  <div class="container-100">
+    <div class="wrap-100">
+      <div class="disc-form">
+
+
+
+          <div id="total" class="secret">{{ total }}</div>
+
+          <br><br>
+          <div class="container">
+            <div id="hide1">
+              <h1 class="disc-form-title">Select payment method:</h1><br>
+
+              <div class="container-form-btn">
+                <button id="cash" type="button" class="disc-form-btn-1" onclick="showcash();">Cash</button>
+                <button id="card" type="button" class="disc-form-btn-2" onclick="selectcard();">Card</button><br>
+              </div>
+            </div>
+
+            <div id="hide2" class="secret2">
+              <h1 class="disc-form-title">Select Note:</h1><br>
+              <div class="container-form-btn">
+                <button id="btn1" type="button" class="disc-form-btn-1" onclick="selectp('1');">£1</button>
+                <button id="btn5" type="button" class="disc-form-btn-2" onclick="selectp('5');">£5</button>
+              </div>
+              <div class="container-form-btn">
+                <button id="btn10" type="button" class="disc-form-btn-2" onclick="selectp('10');">£10</button>
+                <button id="btn20" type="button" class="disc-form-btn-1" onclick="selectp('20');">£20</button>
+              </div>
+              <div class="container-form-btn">
+                <button id="btnother" type="button" class="disc-form-btn-3" onclick="other();">Other</button>
+              </div>
+            </div>
+
+            <div id="hide3" class="secret2">
+              <h1 id="labelother" class="disc-form-title">Enter amount paid:</h1>
+              <div class="wrap-input100">
+                <input id="idamount" name="amount" type="text" class="input100"></input>
+                <span class="focus-input100"></span>
+              </div>
+              <div class="wrap-104">
+                <div class="container-form-btn">
+                  <button id="okother" type="button" class="disc-form-btn-6" onclick="change()">Submit</button>
+                </div>
+              </div>
+            </div>
+
+            <div id="hide4" class="secret2">
+              <div id="change" class="disc-form-title">Change:  £</div>
+              <br><br><br><br>
+              <div class="wrap-104">
+                <button id="btnch" type="button" class="disc-form-btn-6" onclick="sub('fpay_method');">Ok</button>
+              </div>
+            </div>
+
+            <div id="hide5" class="secret2">
+              <div class="disc-form-title">
+                Enter details in card reader
+              </div><br><br><br><br>
+              <div class="wrap-104">
+                <button id="btnch" type="button" class="disc-form-btn-5" onclick="showcash();">Use cash instead</button>
+                <button id="btnch" type="button" class="disc-form-btn-6" onclick="sub('fpay_method');">Ok</button>
+              </div>
+            </div>
+
+            <div id="hide6" class="secret2">
+              <h1 class="login100-form-title-error" id="balance">Please pay remaining balance:<br>£</h1>
+              <div class="container-form-btn">
+                <button id="cash" type="button" class="disc-form-btn-1" onclick="showcash();">Cash</button>
+                <button id="card" type="button" class="disc-form-btn-2" onclick="selectcard();">Card</button><br>
+              </div>
+            </div>
+
+            <!-- The actual form to submit.  Will always be hidden from user -->
+            <form id="fpay_method" name="pay_method" action="{% url 'checkout' %}" method="POST" >
+              {% csrf_token %}
+              <input id="pm_method" name="method" class="secret" type="text"></input>
+            </form>
+          </div>
+
+
+
+      </div>
+      <div class="disc100-more" style="background-image: url('{% static 'images/coffee3.jpg' %}');">
+        <div class="container-101">
+          <div class="wrap-101">
+          </div>
+          <div class="wrap-102">
+            {% include "till_sys/cart.html" %}
+          </div>
+        </div>
+        <div class="wrap-103">
+          <div class="container-form-btn">
+            <a href="{% url 'index' %}"><button id="add_more" type="button" class="disc-form-btn-5">Add more items</button></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

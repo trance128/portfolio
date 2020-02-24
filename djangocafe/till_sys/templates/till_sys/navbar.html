@@ -1,0 +1,20 @@
+<nav class="navbar nvbr-top">
+
+    <ul class="nav navbar-nav nvbr-ul">
+      <li>
+        <button id="bk-tp" type="button" class="disc-ind-btn-2 menu-type" onclick="show_types('bk_menu', 'bk-tp');">Breakfast</button>
+      </li>
+      <li>
+        <button id="lc-tp" type="button" class="disc-ind-btn-2 active menu-type" onclick="show_types('lunch_menu', 'lc-tp');">Lunch</button>
+      </li>
+      <li>
+        <button id="dk-tp" type="button" class="disc-ind-btn-2 menu-type" onclick="show_types('drinks_menu', 'dk-tp');">Drinks & Cakes</button>
+      </li>
+    </ul>
+
+    <div class="nav navbar-nav nvbr-right ">
+      <a href="{% url 'admin' %}"><button type="button" class="disc-ind-btn-1">Admin</button></a>
+      <a href="{% url 'logout' %}"><button type="button" class="disc-ind-btn-2">Sign Out</button></a>
+    </div>
+
+</nav>
