@@ -15,8 +15,11 @@ This is not a production model, so currently payment is not taken through the ph
 
 The project connects to a Django Rest server on my localhost, using NGROK to connnect from React Native.
 Local data is stored in a persisted redux store.
-
-
+Screen shots: 
+https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/mobilecafe.png
+https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/mobilecafe2.png
+https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/mobilecafe3.png
+https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/mobilecafe4.png
 
 Django Cafe     (Python, Django):
 Older code, written only in Django using Views and Django's templating language to generate the web page.
@@ -26,27 +29,31 @@ This project was made for a friend who manages a very small local cafe.  She wan
 The server is run on a windows tablet, using localhost.
 This was the basis for Mobile Cafe.
 
-
-Mobile Movie Browser  ( React Native ):
-In this project, I wanted to demonstrate use of external APIs.
-User can search for movies and get details about said movie.
-Project uses redux store for local data.
-
-Web Movie Browser  (ReactJS):
-Same as above, but uses ReactJS rather than React Native.  
-This project uses stateful classes rather than hooks, to demonstrate their use.
-I prefer using hooks, though.
-
-
-
 Native timer   (React Native):
 Pomodor Timer coded in React Native.
 Users can choose an amount of time to work and for break.  The timer counts down and switches from work / break when appropriate.
+Screenshots:
+https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/mobiletimer.png
+https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/mobiletimer2.png
+https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/mobiletimer3.png
 
 Web Timer  ( React JS):
 As above, web implementation
 
 
+Mobile Movie Browser  ( React Native ):
+In this project, I wanted to demonstrate use of external APIs.
+User can search for movies and get details about said movie.
+Project uses redux store for local data.
+Screenshots:
+https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/mobilemoviebrowser.png
+https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/moviebrowser2.png
+https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/moviebrowser3.png
+
+Web Movie Browser  (ReactJS):
+Same as above, but uses ReactJS rather than React Native.  
+This project uses stateful classes rather than hooks, to demonstrate their use.
+I prefer using hooks, though.
 
 Currently working on React Cafe -- updated Django Cafe code to use React JS as a front end
 Also adding additional features to Mobile Cafe
