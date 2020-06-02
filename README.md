@@ -1,8 +1,8 @@
 # portfolio
-OLD REACT NATIVE PORTFOLIO
+DJANGO / REACT / REACT NATIVE PORTFOLIO
 ------------------------------------------------
 
-I'm using this downtime to learn Flutter.  This portfolio instead has older code in React Native.  I'll refactor most of this into Flutter at a later date.
+I'm using this downtime to learn Flutter, clean architecture and tdd.  This portfolio instead has code in Django, React and React Native.  I'll refactor most of this into Flutter at a later date.
 
 ------------------------------------------------
 
