@@ -12,6 +12,7 @@ Project Overview:
 
 
 Mobile Cafe   (React Native, Django Rest Framework Server):
+------------------------
 Project in React Native.
 Project uses hooks, Expo, React Navigation 5, Redux, Redux Persist, Redux Thunk.
 Allows a user to order for a local cafe from their phone.
@@ -29,6 +30,7 @@ https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/mobilec
 https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/mobilecafe4.png
 
 Django Cafe     (Python, Django):
+------------------------
 Older code, written only in Django using Views and Django's templating language to generate the web page.
 I'm currently rewriting this project to use ReactJS as a front end, and I expeect to upload the React version in a couple days (6-7 March 2020)
 
@@ -37,6 +39,7 @@ The server is run on a windows tablet, using localhost.
 This was the basis for Mobile Cafe.
 
 Native timer   (React Native):
+------------------------
 Pomodor Timer coded in React Native.
 Users can choose an amount of time to work and for break.  The timer counts down and switches from work / break when appropriate.
 Screenshots:
@@ -45,10 +48,12 @@ https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/mobilet
 https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/mobiletimer3.png
 
 Web Timer  ( React JS):
+------------------------
 As above, web implementation
 
 
 Mobile Movie Browser  ( React Native ):
+------------------------
 In this project, I wanted to demonstrate use of external APIs.
 User can search for movies and get details about said movie.
 Project uses redux store for local data.
@@ -58,6 +63,7 @@ https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/moviebr
 https://raw.githubusercontent.com/trance128/portfolio/master/screenshots/moviebrowser3.png
 
 Web Movie Browser  (ReactJS):
+------------------------
 Same as above, but uses ReactJS rather than React Native.  
 This project uses stateful classes rather than hooks, to demonstrate their use.
 I prefer using hooks, though.
