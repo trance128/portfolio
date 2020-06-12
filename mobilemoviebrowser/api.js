@@ -2,7 +2,7 @@
 
 Visit www.omdbapi.com for more info about the API */
 
-export const url = "http://www.omdbapi.com/?apikey=86a0e4cc&"
+export const url = "http://www.omdbapi.com/?apikey=" + apiKey + "&"
 
 // initial Search function, searchs for the title and returns the entire object for processing
 export const searchTitle = async (title, page) => {
